@@ -17,6 +17,7 @@ pipeline {
             agent {
                 docker {
                     image 'maven:3.9.9-eclipse-temurin-21'
+                    args '-v jenkins-java-practice-maven-cache:/root/.m2'
                     reuseNode true
                 }
             }
