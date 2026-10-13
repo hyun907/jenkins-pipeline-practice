@@ -42,6 +42,13 @@ class AppTest {
     }
 
     @Test
+    void aboutEndpoint() throws Exception {
+        HttpResponse<String> response = get("/about");
+        assertEquals(200, response.statusCode());
+        assertEquals("{\"name\":\"jenkins-java-practice\",\"version\":\"1.0.0\"}", response.body());
+    }
+
+    @Test
     void unknownPath() throws Exception {
         HttpResponse<String> response = get("/missing");
         assertEquals(404, response.statusCode());

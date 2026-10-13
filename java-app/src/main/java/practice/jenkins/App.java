@@ -33,6 +33,10 @@ public final class App {
                     status = 200;
                     response = "{\"status\":\"ok\"}";
                 }
+                case "/about" -> {
+                    status = 200;
+                    response = "{\"name\":\"jenkins-java-practice\",\"version\":\"1.0.0\"}";
+                }
                 default -> {
                     status = 404;
                     response = "{\"error\":\"not found\"}";
