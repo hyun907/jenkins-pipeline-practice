@@ -1,0 +1,8 @@
+.git
+target/*
+!target/jenkins-java-practice-1.0.0.jar
+src/
+pom.xml
+README.md
+Jenkinsfile
+k8s/

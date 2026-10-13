@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+
+    options {
+        disableConcurrentBuilds()
+        timeout(time: 20, unit: 'MINUTES')
+        timestamps()
+    }
+
+    environment {
+        IMAGE_NAME = 'jenkins-java-practice'
+        KIND_CLUSTER = 'jenkins-practice'
+    }
+
+    stages {
+        stage('Test and package') {
+            agent {
+                docker {
+                    image 'maven:3.9.9-eclipse-temurin-21'
+                    reuseNode true
+                }
+            }
+            steps {
+                dir('java-app') {
+                    sh 'mvn -B -ntp clean verify'
+                }
+            }
+        }
+
+        stage('Build image') {
+            steps {
+                sh 'docker build -t "$IMAGE_NAME:$BUILD_NUMBER" java-app'
+            }
+        }
+
+        stage('Deploy to kind') {
+            steps {
+                withCredentials([file(credentialsId: 'practice-kind-kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh 'sh java-app/scripts/deploy.sh "$IMAGE_NAME:$BUILD_NUMBER" "$KIND_CLUSTER"'
+                }
+            }
+        }
+
+        stage('Verify deployment') {
+            steps {
+                withCredentials([file(credentialsId: 'practice-kind-kubeconfig', variable: 'KUBECONFIG')]) {
+                    sh 'sh java-app/scripts/verify.sh "$KIND_CLUSTER"'
+                }
+            }
+        }
+    }
+}

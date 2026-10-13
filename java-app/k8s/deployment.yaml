@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-java-practice
+  namespace: jenkins-practice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins-java-practice
+  template:
+    metadata:
+      labels:
+        app: jenkins-java-practice
+    spec:
+      containers:
+        - name: jenkins-java-practice
+          image: jenkins-java-practice:demo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 2
+            periodSeconds: 2
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
