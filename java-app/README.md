@@ -27,4 +27,4 @@ kind get kubeconfig --internal --name jenkins-practice > /path/outside-repositor
 
 Kubeconfig에는 클러스터 접속 정보가 들어 있으므로 저장소에 추가하지 않습니다. Jenkins에서 **Pipeline script from SCM**을 선택하고 **Script Path**를 `java-app/Jenkinsfile`로 설정합니다.
 
-파이프라인은 Maven 테스트 및 패키징 → Docker 이미지 빌드 → `kind` 배포 → Service 응답 확인 순서로 실행됩니다. 빌드 번호를 이미지 태그로 사용하며 배포 대상은 로컬 `kind-jenkins-practice` 컨텍스트의 `jenkins-practice` 네임스페이스입니다.
+파이프라인은 Maven 테스트 및 패키징 → Docker 이미지 빌드 → `kind` 배포 → Service 응답 확인 순서로 실행됩니다. Jenkins 작업 이름과 빌드 번호를 이미지 태그에 넣으며 배포 대상은 로컬 `kind-jenkins-practice` 컨텍스트의 `jenkins-practice` 네임스페이스입니다.

@@ -29,14 +29,14 @@ pipeline {
 
         stage('Build image') {
             steps {
-                sh 'docker build -t "$IMAGE_NAME:$BUILD_NUMBER" java-app'
+                sh 'docker build -t "$IMAGE_NAME:$BUILD_TAG" java-app'
             }
         }
 
         stage('Deploy to kind') {
             steps {
                 withCredentials([file(credentialsId: 'practice-kind-kubeconfig', variable: 'KUBECONFIG')]) {
-                    sh 'sh java-app/scripts/deploy.sh "$IMAGE_NAME:$BUILD_NUMBER" "$KIND_CLUSTER"'
+                    sh 'sh java-app/scripts/deploy.sh "$IMAGE_NAME:$BUILD_TAG" "$KIND_CLUSTER"'
                 }
             }
         }
