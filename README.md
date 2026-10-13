@@ -24,4 +24,4 @@ Jenkins 실행 환경에서 Docker 명령을 사용할 수 있어야 하며, Doc
 
 파이프라인은 Docker agent에서 HTTP 테스트를 실행하고 이미지를 만든 뒤 컨테이너의 `/health` 응답을 확인합니다. 이미지는 로컬 Docker 엔진에만 남으며 외부 레지스트리로 전송하지 않습니다.
 
-이 저장소의 예제 코드는 새로 작성했으며 [Unlicense](UNLICENSE)에 따라 공개합니다.
+이 저장소의 예제 코드는 새로 작성했으며 [Unlicense](LICENSE)에 따라 공개합니다.
